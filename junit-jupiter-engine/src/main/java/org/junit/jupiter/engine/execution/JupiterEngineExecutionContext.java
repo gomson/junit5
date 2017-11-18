@@ -40,6 +40,19 @@ public class JupiterEngineExecutionContext implements EngineExecutionContext {
 		this.state = state;
 	}
 
+	@Override
+	public void close() {
+		ExtensionContext extensionContext = getExtensionContext();
+		if (extensionContext instanceof AutoCloseable) {
+			try {
+				((AutoCloseable) extensionContext).close();
+			}
+			catch (Exception e) {
+				// TODO Handle (log, collect, rethrow) exception...
+			}
+		}
+	}
+
 	public EngineExecutionListener getExecutionListener() {
 		return this.state.executionListener;
 	}

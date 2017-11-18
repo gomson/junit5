@@ -260,6 +260,19 @@ public interface ExtensionContext {
 	interface Store {
 
 		/**
+		 * Values implementing this interface indicate that they want to relinquish
+		 * some resources when the store is closed.
+		 */
+		interface CloseableValue {
+			/**
+			 * Relinquish resources.
+			 *
+			 * @throws Throwable any throwable is collected and rethrown.
+			 */
+			void close() throws Throwable;
+		}
+
+		/**
 		 * Get the value that is stored under the supplied {@code key}.
 		 *
 		 * <p>If no value is stored in the current {@link ExtensionContext}
